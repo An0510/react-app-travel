@@ -8,7 +8,6 @@ import {
     BusinessPartners,
 } from "../../components";
 import {Row, Col, Typography, Spin} from "antd";
-import {productList1, productList2, productList3} from "./mockups";
 import sideImage from "../../assets/images/sider_2019_12-09.png";
 import sideImage2 from "../../assets/images/sider_2019_02-04.png";
 import sideImage3 from "../../assets/images/sider_2019_02-04-2.png";
@@ -17,7 +16,7 @@ import {withTranslation, WithTranslation} from "react-i18next";
 import axios from "axios";
 import { connect } from "react-redux";
 import {RootState} from "../../redux/store";
-import {fetchRecommendProductStartActionCreator,fetchRecommendProductSuccessActionCreator,fetchRecommendProductFailActionCreator} from "../../redux/recommandProducts/recommandProductsActions";
+import {giveMeDataActionCreator} from "../../redux/recommandProducts/recommandProductsActions";
 
 const mapStateToProps = (state: RootState) => {
     return {
@@ -28,14 +27,8 @@ const mapStateToProps = (state: RootState) => {
 }
 const mapDispatchToProps = (dispatch:any) => {
     return {
-        fetchStart: () => {
-            dispatch(fetchRecommendProductStartActionCreator())
-        },
-        fetchSuccess: (data) => {
-            dispatch(fetchRecommendProductSuccessActionCreator(data))
-        },
-        fetchFail: (error) => {
-            dispatch(fetchRecommendProductFailActionCreator(error))
+        giveMeData: () => {
+            dispatch(giveMeDataActionCreator())
         }
     }
 }
@@ -46,18 +39,8 @@ type PropType = WithTranslation
 
 class HomePageComponent extends React.Component<PropType> {
 
-    async componentDidMount() {
-        this.props.fetchStart()
-        try {
-            const {data} = await axios.get('http://123.56.149.216:8080/api/productCollections', {
-                headers: {
-                    "x-icode": '97A353F65C796EE2'
-                }
-            })
-            this.props.fetchSuccess(data)
-        } catch (error: any) {
-            this.props.fetchFail(error.message)
-        }
+    componentDidMount() {
+        this.props.giveMeData()
     }
 
     render() {
