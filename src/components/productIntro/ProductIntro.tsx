@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from "./ProductIntro.module.css";
 import {Typography, Carousel, Image, Rate, Table} from "antd";
 import {ColumnsType} from "antd/es/table";
+import {nanoid} from "nanoid";
 
 interface PropType {
     title: string,
@@ -13,7 +14,6 @@ interface PropType {
     rating: string,
     pictures: string[],
 };
-
 
 const columns: ColumnsType<RowType> = [
     {
@@ -52,12 +52,12 @@ export const ProductIntro: React.FC<PropType> = (
 ) => {
     const tableDataSource: RowType[] = [
         {
-            key: 0,
+            key: 1,
             title: "路线名称",
             description: title,
         },
         {
-            key: 1,
+            key: 2,
             title: "价格",
             description: (
                 <>
@@ -69,7 +69,7 @@ export const ProductIntro: React.FC<PropType> = (
             ),
         },
         {
-            key: 2,
+            key: 3,
             title: "限时抢购折扣",
             description: discount ? (
                 <>
@@ -83,12 +83,12 @@ export const ProductIntro: React.FC<PropType> = (
             ),
         },
         {
-            key: 2,
+            key: 4,
             title: "领取优惠",
             description: coupons ? discount : "无优惠券可领",
         },
         {
-            key: 2,
+            key: 5,
             title: "线路评价",
             description: (
                 <>
@@ -120,7 +120,7 @@ export const ProductIntro: React.FC<PropType> = (
             </div>
             <Carousel autoplay slidesToShow={3}>
                 {pictures.map(p => (
-                    <Image height={150} src={p}/>
+                    <Image height={150} src={p} key={nanoid()}/>
                 ))}
             </Carousel>
             <Table<RowType>
