@@ -3,10 +3,12 @@ import {RouteComponentProps, useParams} from "react-router-dom";
 import axios from "axios";
 import {Spin, Row, Col, DatePicker, Space, Divider, Typography, Anchor, Menu} from "antd";
 import styles from "./DetailPage.module.css";
-import {Header, Footer, ProductIntro,ProductComments} from "../../components";
+import {Header, Footer, ProductIntro, ProductComments} from "../../components";
 import {commentMockData} from './mockup'
 import {nanoid} from "nanoid";
-
+import {productDetailSlice,getProductDetail} from "../../redux/productDetail/slice";
+import {useSelector} from "../../redux/hooks";
+import {useDispatch} from "react-redux";
 
 interface MatchParams {
     touristRouteId: string;
@@ -16,23 +18,20 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
     props
 ) => {
     const {touristRouteId} = useParams<MatchParams>()
-    const [loading, setLoading] = useState<boolean>(true)
-    const [product, setProduct] = useState<any>(null)
-    const [error, setError] = useState<string | null>(null)
+    // const [loading, setLoading] = useState<boolean>(true)
+    // const [product, setProduct] = useState<any>(null)
+    // const [error, setError] = useState<string | null>(null)
     const {RangePicker} = DatePicker;
+
+    const loading = useSelector(state => state.productDetail.loading)
+    const error = useSelector(state => state.productDetail.error)
+    const product = useSelector(state => state.productDetail.data)
+
+    const dispatch = useDispatch()
+
+
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true)
-            const {data} = await axios.get(`http://123.56.149.216:8080/api/touristRoutes/${touristRouteId}`)
-            try {
-                setProduct(data)
-                setLoading(false)
-            } catch (error: any) {
-                setError(error.message)
-                setLoading(false)
-            }
-        }
-        fetchData().then(r => r)
+        dispatch(getProductDetail(touristRouteId))
     }, [])
     if (loading) {
         return (<Spin
@@ -99,7 +98,7 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
                 </Divider>
                 <div
                     dangerouslySetInnerHTML={{__html: product.features}}
-                    style={{margin:50}}
+                    style={{margin: 50}}
                 />
             </div>
             {/*费用*/}
@@ -111,7 +110,7 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
                 </Divider>
                 <div
                     dangerouslySetInnerHTML={{__html: product.fees}}
-                    style={{margin:50}}
+                    style={{margin: 50}}
                 />
             </div>
             {/*预定需知*/}
@@ -123,7 +122,7 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
                 </Divider>
                 <div
                     dangerouslySetInnerHTML={{__html: product.notes}}
-                    style={{margin:50}}
+                    style={{margin: 50}}
                 />
             </div>
             {/*产品评价*/}
@@ -133,7 +132,7 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
                         用户评价
                     </Typography.Title>
                 </Divider>
-                <ProductComments data={commentMockData} />
+                <ProductComments data={commentMockData}/>
             </div>
         </div>
         <Footer/>
