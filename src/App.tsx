@@ -5,7 +5,7 @@ import { HomePage, SignInPage, RegisterPage, DetailPage,SearchPage } from "./pag
 
 function App() {
   // 与服务器路径一致
-  const publicPath = "/travel/"
+  const publicPath = "/travel"
   return (
     <div className={styles.App}>
       <BrowserRouter>
