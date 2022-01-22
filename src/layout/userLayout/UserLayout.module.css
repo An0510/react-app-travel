@@ -41,6 +41,7 @@
 }
 
 .content .top .content-header .title {
+    bottom: 15px;
     position: relative;
     top: 2px;
     color: #1890ff;

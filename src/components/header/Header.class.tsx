@@ -39,6 +39,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
+// 与服务器路径一致
+const publicPath = "/travel/"
 
 class HeaderComponent extends React.Component<PropsType> {
 
@@ -77,10 +79,10 @@ class HeaderComponent extends React.Component<PropsType> {
                             {this.props.language === "zh" ? "中文" : "English"}
                         </Dropdown.Button>
                         <Button.Group className={styles["button-group"]}>
-                            <Button onClick={() => history.push("register")}>
+                            <Button onClick={() => history.push(`${publicPath}register`)}>
                                 {t("header.register")}
                             </Button>
-                            <Button onClick={() => history.push("signIn")}>
+                            <Button onClick={() => history.push(`${publicPath}signIn`)}>
                                 {t("header.signin")}
                             </Button>
                         </Button.Group>

@@ -19,7 +19,6 @@ import {RootState} from "../../redux/store";
 import {giveMeDataActionCreator} from "../../redux/recommandProducts/recommandProductsActions";
 import {MainLayout} from "../../layout/mainLayout";
 
-
 const mapStateToProps = (state: RootState) => {
     return {
         loading: state.recommendProducts.loading,

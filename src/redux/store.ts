@@ -1,7 +1,5 @@
-import {createStore, applyMiddleware} from 'redux';
 import languageReducer from "./language/languageReducer";
 import recommandProductsReducer from './recommandProducts/recommandProductsReducer'
-import thunk from 'redux-thunk'
 import {actionLog} from "./middlewares/actionLog";
 import {productDetailSlice} from "./productDetail/slice";
 import { combineReducers,configureStore } from '@reduxjs/toolkit'

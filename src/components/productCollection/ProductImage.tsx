@@ -20,8 +20,10 @@ const ProductImageComponent: React.FC<PropsType> = ({
   // console.log(history)
   // console.log(location)
   // console.log(match)
+  // 与服务器路径一致
+  const publicPath = "/travel/"
   return (
-    <Link to={`detail/${id}`}>
+    <Link to={`${publicPath}detail/${id}`}>
       {size === "large" ? (
         <Image src={imageSrc} height={285} width={490} />
       ) : (
