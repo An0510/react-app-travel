@@ -6,9 +6,10 @@ import styles from "./DetailPage.module.css";
 import {Header, Footer, ProductIntro, ProductComments} from "../../components";
 import {commentMockData} from './mockup'
 import {nanoid} from "nanoid";
-import {productDetailSlice,getProductDetail} from "../../redux/productDetail/slice";
+import {productDetailSlice, getProductDetail} from "../../redux/productDetail/slice";
 import {useSelector} from "../../redux/hooks";
 import {useDispatch} from "react-redux";
+import {MainLayout} from "../../layout/mainLayout";
 
 interface MatchParams {
     touristRouteId: string;
@@ -50,8 +51,7 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
         return <div>网站出错:{error}</div>
     }
     return <>
-        <Header/>
-        <div className={styles["page-content"]}>
+        <MainLayout>
             {/*产品简介和日期选择*/}
             <div className={styles['product-intro-container']}>
                 <Row>
@@ -134,7 +134,6 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
                 </Divider>
                 <ProductComments data={commentMockData}/>
             </div>
-        </div>
-        <Footer/>
+        </MainLayout>
     </>;
 };
