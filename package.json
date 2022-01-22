@@ -2,6 +2,7 @@
   "name": "react-app-travel",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/travel/build/",
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@reduxjs/toolkit": "^1.7.1",
