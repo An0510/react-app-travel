@@ -8,9 +8,6 @@ import {
     BusinessPartners,
 } from "../../components";
 import {Row, Col, Typography, Spin} from "antd";
-import sideImage from "../../assets/images/sider_2019_12-09.png";
-import sideImage2 from "../../assets/images/sider_2019_02-04.png";
-import sideImage3 from "../../assets/images/sider_2019_02-04-2.png";
 import styles from "./HomePage.module.css";
 import {withTranslation, WithTranslation} from "react-i18next";
 import axios from "axios";
@@ -81,7 +78,7 @@ class HomePageComponent extends React.Component<PropType> {
                                 {t("home_page.hot_recommended")}
                             </Typography.Title>
                         }
-                        sideImage={sideImage}
+                        sideImage={'https://typora-an.oss-cn-hangzhou.aliyuncs.com/%E5%89%8D%E7%AB%AF/sider_2019_02-04.png'}
                         products={productList[0].touristRoutes}
                     />
                     <ProductCollection
@@ -90,7 +87,7 @@ class HomePageComponent extends React.Component<PropType> {
                                 {t("home_page.new_arrival")}
                             </Typography.Title>
                         }
-                        sideImage={sideImage2}
+                        sideImage={'https://typora-an.oss-cn-hangzhou.aliyuncs.com/%E5%89%8D%E7%AB%AF/sider_2019_02-04-2.png'}
                         products={productList[1].touristRoutes}
                     />
                     <ProductCollection
@@ -99,7 +96,7 @@ class HomePageComponent extends React.Component<PropType> {
                                 {t("home_page.domestic_travel")}
                             </Typography.Title>
                         }
-                        sideImage={sideImage3}
+                        sideImage={'https://typora-an.oss-cn-hangzhou.aliyuncs.com/%E5%89%8D%E7%AB%AF/sider_2019_12-09.png'}
                         products={productList[2].touristRoutes}
                     />
                     <BusinessPartners/>

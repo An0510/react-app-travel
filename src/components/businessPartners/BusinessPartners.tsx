@@ -2,16 +2,11 @@ import React from "react";
 import { Row, Col, Typography, Divider } from "antd";
 import styles from "./BusinessPartners.modules.css";
 
-import image1 from '../../assets/images/microsoft-80658_640.png';
-import image2 from '../../assets/images/icon-720944_640.png';
-import image3 from '../../assets/images/follow-826033_640.png';
-import image4 from '../../assets/images/facebook-807588_640.png';
-
 const companies = [
-    { src: image1, title: "Microsoft"},
-    { src: image2, title: "Youtube"},
-    { src: image3, title: "Ins"},
-    { src: image4, title: "Facebook"}
+    { src: 'https://typora-an.oss-cn-hangzhou.aliyuncs.com/%E5%89%8D%E7%AB%AF/microsoft-80658_640.png', title: "Microsoft"},
+    { src: 'https://typora-an.oss-cn-hangzhou.aliyuncs.com/%E5%89%8D%E7%AB%AF/icon-720944_640.png', title: "Youtube"},
+    { src: 'https://typora-an.oss-cn-hangzhou.aliyuncs.com/%E5%89%8D%E7%AB%AF/follow-826033_640.png', title: "Ins"},
+    { src: 'https://typora-an.oss-cn-hangzhou.aliyuncs.com/%E5%89%8D%E7%AB%AF/facebook-807588_640.png', title: "Facebook"}
 ]
 
 export const BusinessPartners: React.FC = (props) => {
