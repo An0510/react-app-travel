@@ -1,6 +1,7 @@
 import React from "react";
 import Particles from "react-tsparticles";
 import {UserLayout} from "../../layout/userLayout";
+import {SignForm} from "./SignForm";
 
 export const SignInPage: React.FC = (props) => {
     console.log(props)
@@ -8,7 +9,8 @@ export const SignInPage: React.FC = (props) => {
     return (
         <div>
             <UserLayout>
-                <h1>登录界面</h1>
+                <h1 style={{color:"#1890ff"}}>登录</h1>
+                <SignForm/>
             </UserLayout>
         </div>
     );

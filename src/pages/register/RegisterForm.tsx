@@ -6,7 +6,7 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 
 export const RegisterForm:React.FC = () => {
-
+    const publicPath = "/travel"
     const history = useHistory()
     const onFinish = async (values: any) => {
         try {
@@ -16,7 +16,7 @@ export const RegisterForm:React.FC = () => {
                 password:values.password,
                 confirmPassword:values.confirm,
             })
-            history.push("/signIn/")
+            history.push(`${publicPath}/signIn/`)
         }catch (err){
             alert('注册失败!')
         }

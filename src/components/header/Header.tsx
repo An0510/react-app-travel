@@ -1,30 +1,56 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.svg";
-import {Layout, Typography, Input, Menu, Button, Dropdown} from "antd";
-import {GlobalOutlined} from "@ant-design/icons";
+import {Layout, Typography, Input, Menu, Button, Dropdown,Avatar} from "antd";
+import {GlobalOutlined,UserOutlined} from "@ant-design/icons";
 import {useHistory, useLocation, useParams, useRouteMatch} from "react-router-dom";
 import {useSelector} from "../../redux/hooks";
 import {useDispatch} from "react-redux";
 import {Dispatch} from "redux";
-import {LanguageActionTypes,addLanguageActionCreator,changeLanguageActionCreator} from "../../redux/language/languageActions";
+import {
+    LanguageActionTypes,
+    addLanguageActionCreator,
+    changeLanguageActionCreator
+} from "../../redux/language/languageActions";
 import {nanoid} from "nanoid";
 import {useTranslation} from "react-i18next";
+import jwtDecode, {JwtPayload as DefaultJwtPayload} from "jwt-decode";
+import axios from "axios";
+import {userSlice} from "../../redux/user/slice";
+
+interface JwtPayload extends DefaultJwtPayload {
+    username: string
+}
 
 export const Header: React.FC = () => {
+    const publicPath = "/travel"
     const history = useHistory();
     const location = useLocation();
     const params = useParams();
     const match = useRouteMatch();
-    const { t } = useTranslation()
+    const {t} = useTranslation()
     const language = useSelector((state) => state.language.language)
-    const languageList = useSelector((state)=> state.language.languageList)
-    const dispatch = useDispatch<Dispatch<LanguageActionTypes>>()
+    const languageList = useSelector((state) => state.language.languageList)
+    // const dispatch = useDispatch<Dispatch<LanguageActionTypes>>()
+    const dispatch = useDispatch()
+    const jwt = useSelector(s => s.user.token)
+    const [username, setUsername] = useState("")
+    const onLogout = () => {
+        dispatch(userSlice.actions.logOut())
+        history.push(`${publicPath}`)
+    }
+    useEffect(() => {
+        if (jwt) {
+            const token = jwtDecode<JwtPayload>(jwt)
+            setUsername(token.username)
+        }
+    }, [jwt])
+
     const menuClickHandler = (e) => {
         console.log(e);
         if (e.key === "new") {
             // 处理新语言添加action
-            dispatch(addLanguageActionCreator("新语言",nanoid()))
+            dispatch(addLanguageActionCreator("新语言", nanoid()))
         } else {
             dispatch(changeLanguageActionCreator(e.key))
         }
@@ -52,10 +78,18 @@ export const Header: React.FC = () => {
                     >
                         {language === "zh" ? "中文" : "English"}
                     </Dropdown.Button>
-                    <Button.Group className={styles["button-group"]}>
-                        <Button onClick={() => history.push("/travel/register")}>注册</Button>
-                        <Button onClick={() => history.push("/travel/signIn")}>登陆</Button>
-                    </Button.Group>
+                    {jwt ?
+                        <Button.Group className={styles["button-group"]}>
+                            <Avatar icon={<UserOutlined />} />
+                            <span style={{marginLeft:"10px"}}>{username}</span>
+                            <Button style={{marginLeft:"15px"}} onClick={() => window.localStorage.clear()}>购物车</Button>
+                            <Button style={{marginLeft:"15px"}} onClick={() => onLogout()}>注销</Button>
+                        </Button.Group>
+                        :
+                        <Button.Group className={styles["button-group"]}>
+                            <Button onClick={() => history.push("/travel/register")}>注册</Button>
+                            <Button onClick={() => history.push("/travel/signIn")}>登陆</Button>
+                        </Button.Group>}
                 </div>
             </div>
             <Layout.Header className={styles["main-header"]}>
