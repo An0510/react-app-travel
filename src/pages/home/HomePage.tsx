@@ -1,16 +1,12 @@
 import React from "react";
 import {
-    Header,
-    Footer,
     Carousel,
     SideMenu,
     ProductCollection,
     BusinessPartners,
 } from "../../components";
 import {Row, Col, Typography, Spin} from "antd";
-import styles from "./HomePage.module.css";
 import {withTranslation, WithTranslation} from "react-i18next";
-import axios from "axios";
 import { connect } from "react-redux";
 import {RootState} from "../../redux/store";
 import {giveMeDataActionCreator} from "../../redux/recommandProducts/recommandProductsActions";

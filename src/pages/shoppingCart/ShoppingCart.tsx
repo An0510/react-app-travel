@@ -1,7 +1,7 @@
 import React,{useEffect} from "react";
 import styles from "./ShoppingCart.module.css";
 import { MainLayout } from "../../layout/mainLayout";
-import { Row, Col, Affix,Button,Alert,message } from "antd";
+import { Row, Col, Affix,message } from "antd";
 import { ProductList, PaymentCard } from "../../components";
 import {useDispatch} from "react-redux";
 import {getShoppingCart,clearShoppingCart,checkout} from "../../redux/shoppingCart/slice";

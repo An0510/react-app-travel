@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
-import {inspect} from "util";
 import styles from './RegisterForm.module.css'
 import axios from "axios";
 import {useHistory} from "react-router-dom";

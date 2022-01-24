@@ -6,16 +6,13 @@ import {GlobalOutlined,UserOutlined} from "@ant-design/icons";
 import {useHistory, useLocation, useParams, useRouteMatch} from "react-router-dom";
 import {useSelector} from "../../redux/hooks";
 import {useDispatch} from "react-redux";
-import {Dispatch} from "redux";
 import {
-    LanguageActionTypes,
     addLanguageActionCreator,
     changeLanguageActionCreator
 } from "../../redux/language/languageActions";
 import {nanoid} from "nanoid";
 import {useTranslation} from "react-i18next";
 import jwtDecode, {JwtPayload as DefaultJwtPayload} from "jwt-decode";
-import axios from "axios";
 import {userSlice} from "../../redux/user/slice";
 import {getShoppingCart, shoppingCartSlice} from "../../redux/shoppingCart/slice";
 
