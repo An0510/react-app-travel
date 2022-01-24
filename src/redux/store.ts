@@ -36,7 +36,7 @@ const store = configureStore({
     // https://github.com/reduxjs/redux-toolkit/issues/870
     middleware: getDefaultMiddleware => [...getDefaultMiddleware({serializableCheck: false,}),actionLog],
     // 是否启用redux-devTools
-    devTools: true
+    devTools: false
 });
 
 const persistor = persistStore(store)
