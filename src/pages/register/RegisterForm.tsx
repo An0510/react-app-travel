@@ -10,7 +10,6 @@ export const RegisterForm:React.FC = () => {
     const history = useHistory()
     const onFinish = async (values: any) => {
         try {
-            console.log('Success:', values);
             await axios.post('http://123.56.149.216:8080/auth/register',{
                 email:values.username,
                 password:values.password,

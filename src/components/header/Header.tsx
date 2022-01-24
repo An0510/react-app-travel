@@ -17,6 +17,7 @@ import {useTranslation} from "react-i18next";
 import jwtDecode, {JwtPayload as DefaultJwtPayload} from "jwt-decode";
 import axios from "axios";
 import {userSlice} from "../../redux/user/slice";
+import {getShoppingCart, shoppingCartSlice} from "../../redux/shoppingCart/slice";
 
 interface JwtPayload extends DefaultJwtPayload {
     username: string
@@ -39,10 +40,14 @@ export const Header: React.FC = () => {
         dispatch(userSlice.actions.logOut())
         history.push(`${publicPath}`)
     }
+    const shoppingCartItem = useSelector(s => s.shoppingCart.items)
+    const shoppingCartLoading = useSelector(s => s.shoppingCart.loading)
+
     useEffect(() => {
         if (jwt) {
             const token = jwtDecode<JwtPayload>(jwt)
             setUsername(token.username)
+            dispatch(getShoppingCart(jwt))
         }
     }, [jwt])
 
@@ -82,8 +87,11 @@ export const Header: React.FC = () => {
                         <Button.Group className={styles["button-group"]}>
                             <Avatar icon={<UserOutlined />} />
                             <span style={{marginLeft:"10px"}}>{username}</span>
-                            <Button style={{marginLeft:"15px"}} onClick={() => window.localStorage.clear()}>购物车</Button>
-                            <Button style={{marginLeft:"15px"}} onClick={() => onLogout()}>注销</Button>
+                            <Button loading={shoppingCartLoading}
+                                    style={{marginLeft:"15px"}}
+                                    onClick={() => history.push(`${publicPath}/shoppingCart`)}
+                            >{t("header.shoppingCart")}{shoppingCartItem.length}</Button>
+                            <Button style={{marginLeft:"15px"}} onClick={() => onLogout()}>{t("header.signOut")}</Button>
                         </Button.Group>
                         :
                         <Button.Group className={styles["button-group"]}>
@@ -93,8 +101,8 @@ export const Header: React.FC = () => {
                 </div>
             </div>
             <Layout.Header className={styles["main-header"]}>
-        <span onClick={() => history.push("/")}>
-          <img src={logo} alt="logo" className={styles["App-logo"]}/>
+        <span onClick={() => history.push(publicPath)}>
+          <img src={logo} alt="logo" className={styles["App-logo"]} />
           <Typography.Title level={3} className={styles.title}>
             React旅游网
           </Typography.Title>
@@ -105,7 +113,7 @@ export const Header: React.FC = () => {
                 />
             </Layout.Header>
             <Menu mode={"horizontal"} className={styles["main-menu"]}>
-                <Menu.Item key={1}>旅游首页</Menu.Item>
+                <Menu.Item key={1} onClick={() => history.push(publicPath)}>旅游首页</Menu.Item>
                 <Menu.Item key={2}>周末游</Menu.Item>
                 <Menu.Item key={3}>跟团游</Menu.Item>
                 <Menu.Item key="4"> 自由行 </Menu.Item>

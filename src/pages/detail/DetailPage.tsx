@@ -1,7 +1,7 @@
 import React, {useEffect, useState,} from "react";
 import {RouteComponentProps, useParams} from "react-router-dom";
 import axios from "axios";
-import {Spin, Row, Col, DatePicker, Space, Divider, Typography, Anchor, Menu} from "antd";
+import {Spin, Row, Col, Button, DatePicker, Space, Divider, Typography, Anchor, Menu} from "antd";
 import styles from "./DetailPage.module.css";
 import {Header, Footer, ProductIntro, ProductComments} from "../../components";
 import {commentMockData} from './mockup'
@@ -10,6 +10,8 @@ import {productDetailSlice, getProductDetail} from "../../redux/productDetail/sl
 import {useSelector} from "../../redux/hooks";
 import {useDispatch} from "react-redux";
 import {MainLayout} from "../../layout/mainLayout";
+import {ShoppingCartOutlined} from "@ant-design/icons";
+import {addShoppingCartItem} from "../../redux/shoppingCart/slice";
 
 interface MatchParams {
     touristRouteId: string;
@@ -23,6 +25,8 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
     // const [product, setProduct] = useState<any>(null)
     // const [error, setError] = useState<string | null>(null)
     const {RangePicker} = DatePicker;
+    const jwt = useSelector(s => s.user.token) as string
+    const shoppingCartLoading = useSelector(s => s.shoppingCart.loading)
 
     const loading = useSelector(state => state.productDetail.loading)
     const error = useSelector(state => state.productDetail.error)
@@ -68,6 +72,19 @@ export const DetailPage: React.FC<RouteComponentProps<MatchParams>> = (
                         />
                     </Col>
                     <Col span={11}>
+                        <Button
+                            loading={shoppingCartLoading}
+                            style={{
+                                marginTop: "25px",
+                                marginRight: "15px",
+                                display: "block",
+                                backgroundColor: "#1976D2",
+                                color: "white"
+                            }}
+                            onClick={() => {
+                                dispatch(addShoppingCartItem({jwt, touristRouteId: product.id}))
+                            }}
+                        ><ShoppingCartOutlined/>添加购物车</Button>
                         <RangePicker open style={{marginTop: 20}}/>
                     </Col>
                 </Row>
